@@ -37,7 +37,20 @@ public class ReverseNodesinkGroup {
     }
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		ReverseNodesinkGroup a=new ReverseNodesinkGroup();
+		ListNode head=a.new ListNode(1);
+		head.next=a.new ListNode(2);
+		head.next.next=a.new ListNode(3);
+		head.next.next.next=a.new ListNode(4);
+		head.next.next.next.next=a.new ListNode(5);
+		head.next.next.next.next.next=a.new ListNode(6);
+		head.next.next.next.next.next.next=a.new ListNode(7);
+		head.next.next.next.next.next.next.next=a.new ListNode(8);
+		ListNode res=a.reverseKGroup(head,8);
+		while(res!=null){
+			System.out.print(res.val);
+			res=res.next;
+		}
 
 	}
 
