@@ -10,7 +10,9 @@ public class CombinationSum {
         List<List<Integer>> res=new ArrayList<List<Integer>>();
     	if(candidates==null||target<candidates[0]) return res;
         ArrayList<Integer> ele=new ArrayList<Integer>();
+        System.out.println(target);
         cSum(candidates,0, res, target, ele);//start 去重 保证ele 是增序填充元素
+        System.out.println(target);//由于回溯 target值一直没变
         return res;
     }
 
@@ -20,11 +22,11 @@ public class CombinationSum {
 			res.add(new ArrayList<Integer>(ele));
 			return;
 		}
-		for(;start<candidates.length;start++){
+		for(;start<candidates.length;start++){//遍历所有情况
 			if(start>0&&candidates[start]==candidates[start-1]) continue;
 			ele.add(candidates[start]);
 			cSum(candidates,start,res,target-candidates[start],ele);
-			ele.remove(ele.size()-1);//remove 最近一次add的元素
+			ele.remove(ele.size()-1);//remove 最近一次add的元素  回溯
 		}
 	}
 
