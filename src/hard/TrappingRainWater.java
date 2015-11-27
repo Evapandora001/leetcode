@@ -36,31 +36,62 @@ public class TrappingRainWater {
 		System.out.println(a.trap(new int[]{5,4,3,2,1}));
 		System.out.println(a.trap(new int[]{5,4,0,2,1}));
 	}
-	
+//	/*
+//	 * 时间复杂度 2*n
+//	 */
+//	public int trap(int[] height) {
+//		if(height==null||height.length<=2) return 0;
+//		int res=0,maxIndex=0;
+//		for(int i=1;i<height.length;i++){
+//			if(height[i]>height[maxIndex]){
+//				maxIndex=i;
+//			}
+//		}
+//		for(int i=1,left=0;i<maxIndex;i++){
+//			if(height[i]<height[left]){
+//				res+=height[left]-height[i];
+//			}else{
+//				left=i;
+//			}
+//		}
+//		
+//		for(int i=height.length-1,right=height.length-1;i>maxIndex;--i){
+//			if(height[i]<height[right]){
+//				res+=height[right]-height[i];
+//			}else{
+//				right=i;
+//			}
+//		}
+//		
+//		return res;
+//	}
+	/*
+	 * 时间复杂度 n
+	 * key： 对于left，只要右侧存在一个比自己大的数，比自己低的水位就可以 trap
+	 *          对于right，只要左侧存在一个比自己大的数，比自己低的水位就可以trap
+	 */
 	public int trap(int[] height) {
 		if(height==null||height.length<=2) return 0;
-		int res=0,maxIndex=0;
-		for(int i=1;i<height.length;i++){
-			if(height[i]>height[maxIndex]){
-				maxIndex=i;
-			}
-		}
-		for(int i=1,left=0;i<maxIndex;i++){
-			if(height[i]<height[left]){
-				res+=height[left]-height[i];
+		int res=0;
+		int left=0,right=height.length-1;
+		while(left<right){
+			int start=0;
+			if(height[left]<height[right]){
+				start=left;
+				left++;
+				while(height[left]<height[start]){
+					res+=height[start]-height[left];
+					left++;
+				}
 			}else{
-				left=i;
+				start=right;
+				right--;
+				while(height[right]<height[start]){
+					res+=height[start]-height[right];
+					right--;
+				}
 			}
 		}
-		
-		for(int i=height.length-1,right=height.length-1;i>maxIndex;--i){
-			if(height[i]<height[right]){
-				res+=height[right]-height[i];
-			}else{
-				right=i;
-			}
-		}
-		
 		return res;
 	}
 
