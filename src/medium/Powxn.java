@@ -1,7 +1,10 @@
 package medium;
 /**
- * @author Evapandora
- *
+ * 
+ * @ClassName: Powxn
+ * @Description: TODO
+ * @author: Evapandora
+ * @date: 2015年11月30日 下午11:39:26
  */
 public class Powxn {
     public double myPow(double x, int n) {
@@ -11,7 +14,6 @@ public class Powxn {
         }
         return res;
     }
-
 	public static void main(String[] args) {
 		Powxn a=new Powxn();
 		System.out.println(a.myPow(2.2,1));
