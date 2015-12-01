@@ -16,11 +16,28 @@ package easy;
  */
 public class LengthofLastWord {
     public int lengthOfLastWord(String s) {
-        
+    	if(s.length()==0||s.split(" ").length==0){
+    		return 0;
+    	}
+    	int count=0;
+    	boolean end=true;
+    	for(int i=s.length()-1;i>=0;--i){
+    		if(end&&s.charAt(i)==' '){
+    			continue;
+    		}
+    		if(end){
+    			end=false;
+    		}
+    		if(s.charAt(i)==' '){
+    			break;
+    		}
+    		count++;
+    	}
+    	return count;
     }
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		LengthofLastWord a=new LengthofLastWord();
+		System.out.println(a.lengthOfLastWord("  "));
 	}
 
 }
