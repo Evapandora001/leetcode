@@ -16,7 +16,7 @@ package easy;
  */
 public class LengthofLastWord {
     public int lengthOfLastWord(String s) {
-    	if(s.length()==0||s.split(" ").length==0){
+    	if(s.length()==0){//||s.split(" ").length==0
     		return 0;
     	}
     	int count=0;
