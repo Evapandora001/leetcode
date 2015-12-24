@@ -9,6 +9,7 @@
 package hard;
 
 import java.util.HashMap;
+import java.util.TreeMap;
 
 /**
  * @ClassName: MinimumWindowSubstring
@@ -26,16 +27,33 @@ public class MinimumWindowSubstring {
     	if(t.equals("")){
     		return "";
     	}
+    	if(t.length()==1){
+    		if(s.contains(t)){
+    			return t;
+    		}else{
+    			return "";
+    		}
+    	}
     	HashMap<Character,Integer> target=new HashMap<Character,Integer>();
         for(int i=0;i<t.length();i++){
         	if(!target.containsKey(t.charAt(i))){
-        		target.put(toString().charAt(i), 1);
+        		target.put(toString().charAt(i), target.size());
         	}
         }
-        int all=target.size();
-        int hit=0,min=s.length();
+        TreeMap<Character,Integer> hit=new TreeMap<Character,Integer>();
+        int min=s.length(),start=0,end=0;
         for(int i=0;i<s.length();i++){
-        	
+        	char ele=s.charAt(i);
+        	if(target.containsKey(ele)){
+        		if(hit.containsKey(ele)){//重复hit
+        			hit.put(ele,i);
+        		}else{
+        			hit.put(ele,i);
+        			if(hit.size()==target.size()){
+        				int len=i-
+        			}
+        		}
+        	}
         }
         
         return "";
