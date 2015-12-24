@@ -50,7 +50,7 @@ public class MinimumWindowSubstring {
         		}else{
         			hit.put(ele,i);
         			if(hit.size()==target.size()){
-        				int len=i-
+        				int len=i;
         			}
         		}
         	}
