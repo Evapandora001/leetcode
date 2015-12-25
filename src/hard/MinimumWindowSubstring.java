@@ -9,6 +9,7 @@
 package hard;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -107,18 +108,21 @@ Expected:
 	 */
 	public static void main(String[] args) {
 		MinimumWindowSubstring a=new MinimumWindowSubstring();
-		System.out.println(a.minWindow("ADBADCECODEBANC", "ABC"));
-		System.out.println(a.minWindow("a", "aaa"));
-		System.out.println(a.minWindow("", "abc"));
+		System.out.println(a.minWindow("ABC", "AC"));
+		System.out.println(a.minWindow("AABBBBBBACBABBBBA", "A"));
+		System.out.println(a.minWindow("AABBBBBBACBABBBBA", "ABAB"));
+//		System.out.println(a.minWindow("a", "aaa"));
+//		System.out.println(a.minWindow("", "abc"));
 	}
 	public String minWindow(String s, String t) {
-		logger.info(s);
-		logger.info(t);
     	if(t.equals("")||s.length()<t.length()){
     		return "";
     	}
     	if(s.equals(t)){
     		return s;
+    	}
+    	if(t.length()==1&&s.contains(t)){
+    		return t;
     	}
     	HashMap<Character,Integer> target=new HashMap<Character,Integer>();
         for(int i=0;i<t.length();i++){
@@ -131,7 +135,7 @@ Expected:
         }
         int[] cadidate=new int[s.length()];
         HashMap<Character,LinkedList<Integer>> hit=new HashMap<Character,LinkedList<Integer>>();
-        int min=s.length(),start=0,insert=0,head=0,tail=0,hitCount=0;
+        int min=s.length()+1,start=0,insert=0,head=0,tail=0,hitCount=0;//min 必须+1；输出最大可能是s本身
         boolean update=false;
         for(int i=0;i<s.length();i++){
         	char ele=s.charAt(i);
@@ -139,11 +143,13 @@ Expected:
         	if(target.containsKey(ele)){
         		if(hit.containsKey(ele)){//重复hit
         			LinkedList<Integer> value=hit.get(ele);
-        			if(value.size()<target.get(ele)){
+        			if(value.size()<target.get(ele)){//重复有效
         				hitCount++;
         				update=true;
-        				value.add(i);
+        				value.add(insert);
         				hit.put(ele, value);
+        				cadidate[insert]=i;
+        				insert++;
         			}else{
         				int old=value.removeFirst();
         				if(old==start){
@@ -163,9 +169,13 @@ Expected:
         			LinkedList<Integer> value=new LinkedList<>();
         			value.add(insert);
         			hit.put(ele,value);
+        			hitCount++;
+        			update=true;
         			insert++;
         		}
         	}
+        	logger.info(hitCount);
+        	logger.info(Arrays.toString(cadidate));
         	if(update&&hitCount==t.length()){
 				int len=i-cadidate[start]+1;
 				if(len<min){
@@ -173,17 +183,17 @@ Expected:
 					head=cadidate[start];
 					tail=i;
 				}
-				LinkedList<Integer> value=hit.get(ele);
-				value.removeFirst();
+				char key=s.charAt(cadidate[start]);
+				LinkedList<Integer> value=hit.get(key);
+				value.removeFirst();//去除顶点
 				hitCount--;
-				hit.put(ele,value);
+				hit.put(key,value);
 				cadidate[start]=-1;
-				start++;
+				start++;//找到下一个有效位
 				while(cadidate[start]==-1){
 					start++;
 				}
 			}
-        	logger.info(Arrays.toString(cadidate));
         }
         if(head==tail){
         	return "";
