@@ -32,12 +32,38 @@ public class Combinations {
         	res.add(ele);
     		return res; 
     	}
-    	
+//    	boolean[] use=new boolean[n+1];
+    	backTrack(1,ele,n,res,k);
         return res;
     }
+	/**
+	 * @Title: backTrack
+	 * @Description: 
+	 * @param i
+	 * @param ele
+	 * @param use
+	 * @param n
+	 * @param res
+	 * @return: void
+	 */
+	private void backTrack(int start, LinkedList<Integer> ele, int n, List<List<Integer>> res,int k) {
+		if(ele.size()==k){
+			res.add(new LinkedList<Integer>(ele));
+			return;
+		}
+		for(int i=start;i<=n;i++){
+			ele.add(i);
+			backTrack(i+1, ele, n, res, k);
+			ele.remove(ele.size()-1);
+		}
+	}
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		Combinations a=new Combinations();
+		List<List<Integer>> res=a.combine(5, 3);
+		System.out.println(res.size());
+		for(List<Integer> ele:res){
+			System.out.println(ele);
+		}
 	}
 
 }
