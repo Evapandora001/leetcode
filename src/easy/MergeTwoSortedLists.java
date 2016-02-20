@@ -1,6 +1,7 @@
 package easy;
 
 
+
 class ListNode {
 	int val;
 	ListNode next;
