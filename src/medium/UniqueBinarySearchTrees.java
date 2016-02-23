@@ -8,10 +8,6 @@
  */
 package medium;
 
-import java.util.ArrayList;
-
-import medium.UniqueBinarySearchTreesII.TreeNode;
-
 /**
  * @ClassName: UniqueBinarySearchTrees
  * @Description: TODO
@@ -25,11 +21,26 @@ public class UniqueBinarySearchTrees {
 		if(n==0){
 			return 0;
 		}
+		int[] nums=new int[n+1];
+		nums[0]=1;
+		for(int i=1;i<=n;i++){
+			for(int j=1;j<=i;j++){
+				nums[i]+=nums[j-1]*nums[i-j];
+			}
+		}
+		return nums[n];
+    }
+	
+	
+	public int numTrees_1(int n) {
+		if(n==0){
+			return 0;
+		}
         return numTrees(1, n);//从1作为root开始，到n作为root结束
     }
      
     private int numTrees(int left, int right){
-    	if(left<right){
+    	if(left>right){
     		return 1;
     	}
     	int count=0;
