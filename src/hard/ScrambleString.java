@@ -15,6 +15,11 @@ package hard;
  * @date: 2016年2月22日 上午10:25:08
  */
 public class ScrambleString {
+	
+	public boolean isScramble(String s1, String s2) {
+    
+		return true;
+    }
 
 	/**
 	 * @Title: main
@@ -23,8 +28,9 @@ public class ScrambleString {
 	 * @return: void
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		ScrambleString a=new ScrambleString();
+		System.out.println((int)('0'));
+//		System.out.println(a.isScramble("", ""));
 	}
 
 }
