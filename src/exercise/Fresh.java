@@ -27,16 +27,17 @@ public class Fresh {
 	 * @return: void
 	 */
 	public static void main(String[] args) {
-		String a=null;
-//		System.out.println(a.length());
-		a="ab";
-		System.out.println(a.substring(2));
-//		int [] aa=null;
-//		System.out.println(aa.length);
-		LinkedHashMap<Integer, Integer> test = new LinkedHashMap<Integer, Integer>();
-		test.put(1, 1);
-		test.put(2, 2);
-		System.out.println(test.toString());
+//		String a=null;
+////		System.out.println(a.length());
+//		a="ab";
+//		System.out.println(a.substring(2));
+////		int [] aa=null;
+////		System.out.println(aa.length);
+//		LinkedHashMap<Integer, Integer> test = new LinkedHashMap<Integer, Integer>();
+//		test.put(1, 1);
+//		test.put(2, 2);
+//		System.out.println(test.toString());
+		
 	}
 	
 	
