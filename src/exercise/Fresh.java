@@ -27,8 +27,8 @@ public class Fresh {
 	 * @return: void
 	 */
 	public static void main(String[] args) {
-//		String a=null;
-////		System.out.println(a.length());
+		String a=null;
+		System.out.println(a == null);
 //		a="ab";
 //		System.out.println(a.substring(2));
 ////		int [] aa=null;

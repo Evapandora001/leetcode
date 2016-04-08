@@ -42,11 +42,14 @@ public class RemoveNthNodeFromEndofList {
 		head.next.next.next=a.new ListNode(3);
 		head.next.next.next.next=a.new ListNode(4);
 		head.next.next.next.next.next=a.new ListNode(5);
-		head=a.removeNthFromEnd(head, n);
+//		head=a.removeNthFromEnd(head, n);
+		ListNode p = head.next.next;
+		p = null;
 		while(head!=null){
 			System.out.print(head.val+"\t");
 			head=head.next;
 		}
+		
 		
 		
 	}
