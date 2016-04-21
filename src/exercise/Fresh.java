@@ -8,9 +8,13 @@
  */
 package exercise;
 
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Stack;
+
 
 /**
  * @ClassName: Fresh
@@ -37,7 +41,17 @@ public class Fresh {
 //		test.put(1, 1);
 //		test.put(2, 2);
 //		System.out.println(test.toString());
+		test();
 		
+	}
+	
+	public static void test(){
+		List<Integer> list = Arrays.asList(1,2,3);
+		Iterator<Integer> it = list.iterator(); 
+		Iterator<Integer> it2 = it; 
+		System.out.println(it.next());
+		System.out.println(it.next());
+		System.out.println(it2.next());
 	}
 	
 	
