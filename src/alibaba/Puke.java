@@ -24,13 +24,12 @@ public class Puke {
 
 	public static void main(String[] args) {
 		Puke a = new Puke();
-		a.puke(2);
+		a.puke(27);
 
 	}
 	
-	public void puke(int n){
-		//26个数字相乘
-		for(int i = 27; i >= 0; i--){
+	public void puke(int max){
+		for(int i = max; i >= 0; i--){
 			res = res.add(backtarce(i,1));
 		}
 		System.out.println(res);
