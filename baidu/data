@@ -1,8 +1,7 @@
-(??)
-1 2
-2 8
-(?)
-1 2
-(??)
-2 2
-1 1
+6
+insert hello
+insert h
+search hello
+delete e
+search h
+search helloq
