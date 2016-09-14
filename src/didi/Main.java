@@ -2,37 +2,49 @@ package didi;
 
 import java.util.Scanner;
 
-//连续最大和
 public class Main {
 
-	public static void main(String[] args) {
-		Scanner in = new Scanner(System.in);
-		int N = Integer.parseInt(in.nextLine());
-		long pre = 0, max = 0;
-		for (int i = 0; i < N; i++) {
-			int ele = in.nextInt();
-			if (i == 0) {
-				pre = ele;
-				max = ele;
-				continue;
-			}
-			if (ele <= 0) {
-				if (pre <= 0) {
-					pre = ele;
-				} else {
-					pre = pre + ele;
-				}
-			} else {
-				if (pre <= 0) {
-					pre = ele;
-				} else {
-					pre = pre + ele;
-				}
-			}
-			max = Math.max(max, pre);
-
+	public static int fun(int b[], int n) {
+		int i, max, c;
+		c = 0;
+		max = Integer.MIN_VALUE;
+		for (i = 1; i <= n; i++) {
+			if (c > 0)
+				c = c + b[i];
+			else
+				c = b[i];
+			if (max < c)
+				max = c;
 		}
-		System.out.println(max);
+		return max;
 	}
 
+	public static void main(String[] args) {
+		int i, j, max, sum, k;
+		Scanner in = new Scanner(System.in);
+		int number = in.nextInt();
+		while ((number--) > 0) {
+			int n1 = in.nextInt(), m1 = in.nextInt();
+			int[][] a = new int[n1 + 1][m1 + 1];
+			int[] b = new int[m1 + 1];
+
+			for (i = 1; i <= n1; i++)
+				for (j = 1; j <= m1; j++)
+					a[i][j] = in.nextInt();
+			max = Integer.MIN_VALUE;
+			for (i = 1; i <= n1; i++) {
+				for (j = 1; j <= m1; j++)
+					b[j] = 0;
+				for (j = i; j <= n1; j++) {
+					for (k = 1; k <= m1; k++)
+						b[k] += a[j][k];
+					sum = fun(b, m1);
+					if (max < sum)
+						max = sum;
+				}
+
+			}
+			System.out.println(max);
+		}
+	}
 }
