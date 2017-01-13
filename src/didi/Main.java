@@ -1,50 +1,105 @@
 package didi;
 
 import java.util.Scanner;
+import java.util.Stack;
 
 public class Main {
 
-	public static int fun(int b[], int n) {
-		int i, max, c;
-		c = 0;
-		max = Integer.MIN_VALUE;
-		for (i = 1; i <= n; i++) {
-			if (c > 0)
-				c = c + b[i];
-			else
-				c = b[i];
-			if (max < c)
-				max = c;
-		}
-		return max;
-	}
-
 	public static void main(String[] args) {
-		int i, j, max, sum, k;
 		Scanner in = new Scanner(System.in);
-		int number = in.nextInt();
-		while ((number--) > 0) {
-			int n1 = in.nextInt(), m1 = in.nextInt();
-			int[][] a = new int[n1 + 1][m1 + 1];
-			int[] b = new int[m1 + 1];
-
-			for (i = 1; i <= n1; i++)
-				for (j = 1; j <= m1; j++)
-					a[i][j] = in.nextInt();
-			max = Integer.MIN_VALUE;
-			for (i = 1; i <= n1; i++) {
-				for (j = 1; j <= m1; j++)
-					b[j] = 0;
-				for (j = i; j <= n1; j++) {
-					for (k = 1; k <= m1; k++)
-						b[k] += a[j][k];
-					sum = fun(b, m1);
-					if (max < sum)
-						max = sum;
-				}
-
+		int N = in.nextInt();
+		int M = in.nextInt();
+		int P = in.nextInt();
+		int[][] blocks = new int[N][M];
+		int[][] cost = new int[N][M];
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < M; j++) {
+				blocks[i][j] = in.nextInt();
+				cost[i][j] = Integer.MAX_VALUE;
 			}
-			System.out.println(max);
+		}
+		cost[0][0] = 0;
+		// i * M + j (j < M)
+		dfs(0, 0, blocks, cost);
+		if (cost[0][M - 1] <= P) {
+			Stack<Integer> path = new Stack<Integer>();
+			int i = 0, j = M - 1;
+			while (i != 0 || j != 0) {
+				path.add(i * M + j);
+				// up
+				if (islegal(i - 1, j, blocks) && cost[i - 1][j] == cost[i][j]) {
+					i = i - 1;
+				} else {
+					// down
+					if (islegal(i + 1, j, blocks) && cost[i + 1][j] == cost[i][j] - 3) {
+						i = i + 1;
+					} else {
+						// left
+						if (islegal(i, j - 1, blocks) && cost[i][j - 1] == cost[i][j] - 1) {
+							j = j - 1;
+						} else {
+							// right
+							if (islegal(i, j + 1, blocks) && cost[i][j + 1] == cost[i][j] - 1) {
+								j = j + 1;
+							}
+						}
+					}
+				}
+			}
+			StringBuilder paths = new StringBuilder("[0,0]");
+			while (!path.isEmpty()) {
+				int seed = path.pop();
+				paths.append("," + "[" + seed / M + "," + seed % M + "]");
+			}
+			System.out.println(paths.toString());
+		} else {
+			System.out.println("Can not escape!");
 		}
 	}
+
+	private static void dfs(int i, int j, int[][] blocks, int[][] cost) {
+		// up
+		if (islegal(i - 1, j, blocks)) {
+			if (cost[i][j] + 3 < cost[i - 1][j]) {
+				cost[i - 1][j] = cost[i][j] + 3;
+				dfs(i - 1, j, blocks, cost);
+			}
+		}
+		// down
+		if (islegal(i + 1, j, blocks)) {
+			if (cost[i][j] < cost[i + 1][j]) {
+				cost[i + 1][j] = cost[i][j];
+				dfs(i + 1, j, blocks, cost);
+			}
+		}
+		// left
+		if (islegal(i, j - 1, blocks)) {
+			if (cost[i][j] + 1 < cost[i][j - 1]) {
+				cost[i][j - 1] = cost[i][j] + 1;
+				dfs(i, j - 1, blocks, cost);
+			}
+
+		}
+		// right
+		if (islegal(i, j + 1, blocks)) {
+			if (cost[i][j] + 1 < cost[i][j + 1]) {
+				cost[i][j + 1] = cost[i][j] + 1;
+				dfs(i, j + 1, blocks, cost);
+			}
+		}
+	}
+
+	private static boolean islegal(int i, int j, int[][] blocks) {
+		if (i < 0 || i >= blocks.length)
+			return false;
+		if (j < 0 || j >= blocks[0].length)
+			return false;
+		if (blocks[i][j] == 0)
+			return false;
+		return true;
+	}
+
 }
+/*
+ * 4 4 10 1 0 0 1 1 1 0 1 0 1 1 1 0 0 1 1
+ */
